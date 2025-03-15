@@ -6,14 +6,22 @@ phases:
             nodejs: 18
         commands:
             - echo "installing something"
+
     pre_build:
         commands: 
             - echo "pre build phase"
+
     build:
         commands:
             - echo "we will run some tests and build"
-            - grep -i app index.html
+            - test -f index.html && grep -i app index.html || echo "index.html not found!"
+
     post_build:
         commands:
             - echo "post build phase"
-            
+
+artifacts:
+  files:
+    - '**/*'
+  name: BuildArtifact
+  discard-paths: no
